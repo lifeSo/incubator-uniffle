@@ -18,6 +18,7 @@
 package org.apache.tez.runtime.library.common.sort.impl;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +30,7 @@ import org.apache.hadoop.yarn.api.records.ApplicationAttemptId;
 import org.apache.tez.common.RssTezConfig;
 import org.apache.tez.common.RssTezUtils;
 import org.apache.tez.dag.records.TezTaskAttemptID;
+import org.apache.tez.runtime.api.Event;
 import org.apache.tez.runtime.api.OutputContext;
 import org.apache.tez.runtime.library.common.sort.buffer.WriteBufferManager;
 import org.slf4j.Logger;
@@ -177,9 +179,10 @@ public class RssSorter extends ExternalSorter {
   }
 
   @Override
-  public final void close() throws IOException {
+  public final List<Event> close() throws IOException {
     super.close();
     bufferManager.freeAllResources();
+    return Collections.emptyList();
   }
 
   @Override
