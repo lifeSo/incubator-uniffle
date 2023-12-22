@@ -177,9 +177,10 @@ public class RssUnSorter extends ExternalSorter {
   }
 
   @Override
-  public final void close() throws IOException {
+  public final List<Event> close() throws IOException {
     super.close();
     bufferManager.freeAllResources();
+    return Collections.emptyList();
   }
 
   @Override
