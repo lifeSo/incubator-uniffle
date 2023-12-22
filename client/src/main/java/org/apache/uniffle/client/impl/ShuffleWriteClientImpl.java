@@ -561,6 +561,7 @@ public class ShuffleWriteClientImpl implements ShuffleWriteClient {
 
   @Override
   public void registerCoordinators(String coordinators) {
+    LOG.info("----------------------------registerCoordinators:" + coordinators);
     List<CoordinatorClient> clients =
         coordinatorClientFactory.createCoordinatorClient(
             ClientType.valueOf(this.clientType), coordinators);

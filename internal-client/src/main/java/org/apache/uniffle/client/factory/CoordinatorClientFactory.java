@@ -51,6 +51,8 @@ public class CoordinatorClientFactory {
 
   public synchronized CoordinatorClient createCoordinatorClient(
       ClientType clientType, String host, int port) {
+    LOG.info("--------------{} - {} - {} -", clientType, host, port);
+
     if (clientType.equals(ClientType.GRPC) || clientType.equals(ClientType.GRPC_NETTY)) {
       return new CoordinatorGrpcClient(host, port);
     } else {
@@ -60,6 +62,7 @@ public class CoordinatorClientFactory {
 
   public synchronized List<CoordinatorClient> createCoordinatorClient(
       ClientType clientType, String coordinators) {
+    LOG.info("---------------");
     LOG.info("Start to create coordinator clients from {}", coordinators);
 
     String[] coordinatorList = coordinators.trim().split(",");
