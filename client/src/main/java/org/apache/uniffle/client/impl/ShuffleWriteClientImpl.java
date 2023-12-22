@@ -131,7 +131,7 @@ public class ShuffleWriteClientImpl implements ShuffleWriteClient {
     this.clientType = builder.getClientType();
     this.retryMax = builder.getRetryMax();
     this.retryIntervalMax = builder.getRetryIntervalMax();
-    this.coordinatorClientFactory = new CoordinatorClientFactory(ClientType.valueOf(clientType));
+    this.coordinatorClientFactory = CoordinatorClientFactory.getInstance();
     this.heartBeatExecutorService =
         ThreadUtils.getDaemonFixedThreadPool(builder.getHeartBeatThreadNum(), "client-heartbeat");
     this.replica = builder.getReplica();
@@ -562,7 +562,8 @@ public class ShuffleWriteClientImpl implements ShuffleWriteClient {
   @Override
   public void registerCoordinators(String coordinators) {
     List<CoordinatorClient> clients =
-        coordinatorClientFactory.createCoordinatorClient(coordinators);
+        coordinatorClientFactory.createCoordinatorClient(
+            ClientType.valueOf(this.clientType), coordinators);
     coordinatorClients.addAll(clients);
   }
 
@@ -1015,6 +1016,9 @@ public class ShuffleWriteClientImpl implements ShuffleWriteClient {
 
   @Override
   public void unregisterShuffle(String appId) {
+    if (appId == null) {
+      return;
+    }
     Map<Integer, Set<ShuffleServerInfo>> appServerMap = shuffleServerInfoMap.get(appId);
     if (appServerMap == null) {
       return;
