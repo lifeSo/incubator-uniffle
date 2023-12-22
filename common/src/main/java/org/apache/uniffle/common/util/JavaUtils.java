@@ -42,11 +42,7 @@ public class JavaUtils {
   }
 
   public static <K, V> ConcurrentHashMap<K, V> newConcurrentMap() {
-    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
-      return new ConcurrentHashMap<>();
-    } else {
-      return new ConcurrentHashMapForJDK8<>();
-    }
+    return new ConcurrentHashMapForJDK8<>();
   }
 
   /**
