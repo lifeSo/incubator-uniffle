@@ -652,7 +652,7 @@ public class ShuffleWriteClientImpl implements ShuffleWriteClient {
       }
 
       if (response.getStatusCode() == StatusCode.SUCCESS) {
-        LOG.info("Success to get shuffle server assignment from {}", coordinatorClient.getDesc());
+        LOG.info("Ssssssssssssssssuccess to get shuffle server assignment from {}", coordinatorClient.getDesc());
         break;
       }
     }
