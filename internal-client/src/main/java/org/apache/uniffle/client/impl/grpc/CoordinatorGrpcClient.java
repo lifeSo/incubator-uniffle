@@ -88,7 +88,8 @@ public class CoordinatorGrpcClient extends GrpcClient implements CoordinatorClie
     for (StackTraceElement e: stackTraceArr) {
       stackTrackStr.append(e.toString()).append("\n");
     }
-    LOG.info("------------------CoordinatorGrpcClient   call stack track:\n{}\n {} {} ", stackTrackStr, host, port);
+    LOG.info("------------------CoordinatorGrpcClient   call stack {} {} track:\n{}\n {} {} ",
+      Thread.currentThread().getName(), Thread.currentThread().getId(), stackTrackStr, host, port);
   }
 
   public CoordinatorGrpcClient(String host, int port, int maxRetryAttempts) {
