@@ -562,8 +562,17 @@ public class ShuffleWriteClientImpl implements ShuffleWriteClient {
   @Override
   public void registerCoordinators(String coordinators) {
     LOG.info("----------------------------registerCoordinators:" + coordinators);
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------registerCoordinators    call stack track:\n{}\n", stackTrackStr);
+
     List<CoordinatorClient> clients =
-        coordinatorClientFactory.createCoordinatorClient(
+        coordinatorClientFactory.createCoordinatorClienttttt(
             ClientType.valueOf(this.clientType), coordinators);
     coordinatorClients.addAll(clients);
   }
@@ -653,7 +662,7 @@ public class ShuffleWriteClientImpl implements ShuffleWriteClient {
       }
 
       if (response.getStatusCode() == StatusCode.SUCCESS) {
-        LOG.info("Ssssssssssssssssuccess to get shuffle server assignment from {}", coordinatorClient.getDesc());
+        LOG.info("111111ssssssuccess11 to get shuffle server assignment from {}", coordinatorClient.getDesc());
         break;
       }
     }

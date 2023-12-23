@@ -81,10 +81,27 @@ public class CoordinatorGrpcClient extends GrpcClient implements CoordinatorClie
 
   public CoordinatorGrpcClient(String host, int port) {
     this(host, port, 3);
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------CoordinatorGrpcClient   call stack track:\n{}\n {} {} ", stackTrackStr, host, port);
   }
 
   public CoordinatorGrpcClient(String host, int port, int maxRetryAttempts) {
     this(host, port, maxRetryAttempts, true);
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------CoordinatorGrpcClient   call stack track:\n{}\n {} {} {}",
+      stackTrackStr, host, port, maxRetryAttempts);
   }
 
   public CoordinatorGrpcClient(String host, int port, int maxRetryAttempts, boolean usePlaintext) {
@@ -96,6 +113,15 @@ public class CoordinatorGrpcClient extends GrpcClient implements CoordinatorClie
         port,
         maxRetryAttempts,
         usePlaintext);
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------CoordinatorGrpcClient   call stack track:\n{}\n {} {} {} {}",
+      stackTrackStr, host, port, maxRetryAttempts, usePlaintext);
   }
 
   public CoordinatorGrpcClient(ManagedChannel channel) {

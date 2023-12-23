@@ -39,18 +39,47 @@ public class CoordinatorClientFactory {
 
   private CoordinatorClientFactory() {
     clients = JavaUtils.newConcurrentMap();
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------createOrGetCoordinatorClient5555555    call stack track:\n{}\n", stackTrackStr);
   }
 
   private static class LazyHolder {
     static final CoordinatorClientFactory INSTANCE = new CoordinatorClientFactory();
+
+
   }
 
   public static CoordinatorClientFactory getInstance() {
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------createOrGetCoordinatorClient444444   call stack track:\n{}\n", stackTrackStr);
+
     return CoordinatorClientFactory.LazyHolder.INSTANCE;
   }
 
-  public synchronized CoordinatorClient createCoordinatorClient(
+  public synchronized CoordinatorClient createCoordinatorClienttttt(
       ClientType clientType, String host, int port) {
+
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------createOrGetCoordinatorClient33333   call stack track:\n{}\n", stackTrackStr);
+
     LOG.info("--------------{} - {} - {} -", clientType, host, port);
 
     if (clientType.equals(ClientType.GRPC) || clientType.equals(ClientType.GRPC_NETTY)) {
@@ -60,8 +89,19 @@ public class CoordinatorClientFactory {
     }
   }
 
-  public synchronized List<CoordinatorClient> createCoordinatorClient(
+  public synchronized List<CoordinatorClient> createCoordinatorClienttttt(
       ClientType clientType, String coordinators) {
+
+
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------createOrGetCoordinatorClient111122222    call stack track:\n{}\n", stackTrackStr);
+
     LOG.info("---------------");
     LOG.info("Start to create coordinator clients from {}", coordinators);
 
@@ -97,11 +137,20 @@ public class CoordinatorClientFactory {
 
   private CoordinatorClient createOrGetCoordinatorClient(
       ClientType clientType, String host, int port) {
+
+    Thread thread = Thread.currentThread();
+    StackTraceElement[] stackTraceArr = thread.getStackTrace();
+    StringBuilder stackTrackStr = new StringBuilder();
+    for (StackTraceElement e: stackTraceArr) {
+      stackTrackStr.append(e.toString()).append("\n");
+    }
+    LOG.info("------------------createOrGetCoordinatorClient1111    call stack track:\n{}\n", stackTrackStr);
+
     String hostPort = host + ":" + port;
     clients.putIfAbsent(clientType.toString(), JavaUtils.newConcurrentMap());
     Map<String, CoordinatorClient> hostToClients = clients.get(clientType.toString());
     if (hostToClients.get(hostPort) == null) {
-      hostToClients.put(hostPort, createCoordinatorClient(clientType, host, port));
+      hostToClients.put(hostPort, createCoordinatorClienttttt(clientType, host, port));
     }
     return hostToClients.get(hostPort);
   }
