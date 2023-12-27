@@ -1048,6 +1048,7 @@
           </dependency>
         </dependencies>
         <configuration>
+          <includeFilterFile>${project.basedir}/spotbugs-include.xml</includeFilterFile>
           <effort>Max</effort>
           <threshold>Low</threshold>
           <xmlOutput>true</xmlOutput>
