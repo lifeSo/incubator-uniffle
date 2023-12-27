@@ -1031,6 +1031,15 @@
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs-maven-plugin.version}</version>
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>checkstyle</id>-->
+<!--            <phase>validate</phase>-->
+<!--            <goals>-->
+<!--              <goal>check</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
         <dependencies>
           <dependency>
             <groupId>com.github.spotbugs</groupId>
@@ -1039,6 +1048,18 @@
           </dependency>
         </dependencies>
         <configuration>
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>LATEST</version>
+            </plugin>
+            <plugin>
+              <groupId>com.mebigfatguy.fb-contrib</groupId>
+              <artifactId>fb-contrib</artifactId>
+              <version>7.4.3.sb</version>
+            </plugin>
+          </plugins>
           <threshold>middle</threshold>
           <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
         </configuration>
